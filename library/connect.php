@@ -13,8 +13,8 @@ function connect($db){
     return $conn;
 }
 
-function getAll($db, $table){
-    $conn = connect($db);
+function getAll($table){
+    $conn = connect();
     //nếu connect thì code chạy tiếp bên dưới
     //echo "connected successfully";
     //Câu lệnh sql
@@ -31,6 +31,19 @@ function getAll($db, $table){
             }
             //var_dump($students);
         }
+    //students là mang chứa các sinh viên
+    return $data;
+}
+
+function toArray($result){
+    $data = [];
+    if($result -> num_rows > 0){
+        while ($row = $result -> fetch_assoc()){
+            $data[] = $row;
+            //mỗi row mà 1 mảng có các key là các column
+        }
+        //var_dump($students);
+    }
     //students là mang chứa các sinh viên
     return $data;
 }
