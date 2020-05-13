@@ -1,10 +1,10 @@
 <?php
 //ket noi db
-function connect($db){
+function connect(){
     $host = "localhost";
     $userDB = "root";
     $passDB = "";//xampp thi de "", mmam thi de "root"
-    $dbName = $db;
+    $dbName = "labs6";
     $conn = new mysqli($host, $userDB, $passDB, $dbName);//khong can port
 
     if($conn->connect_error){
@@ -35,10 +35,10 @@ function getAll($table){
     return $data;
 }
 
-function toArray($result){
+function toArray($rs){
     $data = [];
-    if($result -> num_rows > 0){
-        while ($row = $result -> fetch_assoc()){
+    if($rs->num_rows > 0){
+        while ($row = $rs -> fetch_assoc()){
             $data[] = $row;
             //mỗi row mà 1 mảng có các key là các column
         }

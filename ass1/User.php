@@ -12,7 +12,7 @@ class User
 
     private $conn;
 
-    public function __construct($id, $name, $email, $password)
+    public function __construct($id=null, $name=null, $email=null, $password=null)
     {
         $this->id = $id;
         $this->name = $name;
@@ -23,22 +23,41 @@ class User
 
     public function getConn(){
         if(is_null($this -> conn)){
-            $this->conn = connect(labs6);
+            $this->conn = connect();
         }
         return $this->conn;
     }
     //xay dung DAO partern cho users
     public function getTable(){
-        return self::$table;
+        return self::$table;//de goi static thi dung self:: (ben java java:class)
     }
     public function getUsers(){
         $sql = "SELECT * FROM ".self::getTable();
         $rs = $this->getConn()->query($sql);
         return toArray($rs);
     }
-    public function save(){
-        $sql_text = "INSERT INTO ".self::getTable()." (id, name, email, password) VALUES (".$this->id."','".$this->email."','".$this->password."
-        ') ON DUPLICATE KEYUPDATE name =  '".$this->name."','".$this->email."','".$this.$this->password."';'";
+
+    public function save(){//la su ket hop cua insert va update
+        $sql_text = "INSERT INTO ".self::getTable()." (id,name,email,password) VALUES(".(is_null($this->id)?'null':$this->id).",'".$this->name.
+            "','".$this->email."','".$this->password."') ON DUPLICATE KEY UPDATE name = '".$this->name."',email = '".$this->email.
+            "', password = '".$this->password."';";
+        try{
+            $this->getConn()->query($sql_text);
+        }catch (\Exception $e){
+            die($e->getMessage());
+        }
+    }
+    public function find($id){
+        $sql_text = "SELECT * FROM ".self::getTable()." WHERE id = ".$id;
+        $ary = toArray($this->getConn()->query($sql_text));
+        if(count($ary) > 0){//neu co du lieu
+            $data = $ary[0];
+            return new User($data["id"], $data["name"], $data["email"], $data["password"]);
+        }
+        return null;
+    }
+    public function delete(){
+        $sql_text = "DELETE FROM ".self::getTable()." WHERE id = ".$this->id;
         $this->getConn()->query($sql_text);
     }
 }

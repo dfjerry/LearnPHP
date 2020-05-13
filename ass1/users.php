@@ -20,6 +20,7 @@
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Password</th>
+            <th scope="col">Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -28,9 +29,10 @@
         <?php foreach ($users->getUsers() as $s): //thay {} bằng { = : , } = endforeach; ?>
             <tr>
                 <th scope="row"><?php echo $s["id"] ?></th>
-                <td><?php echo $s["name"] ?></td>
+                <td><a href="edit.php?id=<?php echo $s["id"]?>"><?php echo $s["name"] ?></a></td>
                 <td><?php echo $s["email"] ?></td>
                 <td><?php echo $s["password"] ?></td>
+                <td><a href="delete.php?id=<?php echo $s["id"]?>">Delete</a></td>
             </tr>
         <?php endforeach;//lam the nay de khỏi lẫn với bọn khác như if else.......  ?>
         </tbody>
