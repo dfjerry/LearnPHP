@@ -1,16 +1,17 @@
 <?php
 namespace ass1;//phan vung cua no
-require_once "../library/connect.php";
-class User
+use library\connector;
+use library\Model;
+require_once "../library/model.php";
+
+class User extends Model
 {
     public  $id;
     public $name;
     public $email;
     public $password;
 
-    public static $table = "users";
-
-    private $conn;
+    protected $table = "users";
 
     public function __construct($id=null, $name=null, $email=null, $password=null)
     {
@@ -21,24 +22,19 @@ class User
 
     }
 
-    public function getConn(){
-        if(is_null($this -> conn)){
-            $this->conn = connect();
-        }
-        return $this->conn;
-    }
-    //xay dung DAO partern cho users
-    public function getTable(){
-        return self::$table;//de goi static thi dung self:: (ben java java:class)
-    }
+
     public function getUsers(){
-        $sql = "SELECT * FROM ".self::getTable();
+        $sql = "SELECT * FROM ".$this->getTable();
         $rs = $this->getConn()->query($sql);
-        return toArray($rs);
+        return $this->toArray($rs);
+    }
+
+    public function all(){
+
     }
 
     public function save(){//la su ket hop cua insert va update
-        $sql_text = "INSERT INTO ".self::getTable()." (id,name,email,password) VALUES(".(is_null($this->id)?'null':$this->id).",'".$this->name.
+        $sql_text = "INSERT INTO ".$this->getTable()." (id,name,email,password) VALUES(".(is_null($this->id)?'null':$this->id).",'".$this->name.
             "','".$this->email."','".$this->password."') ON DUPLICATE KEY UPDATE name = '".$this->name."',email = '".$this->email.
             "', password = '".$this->password."';";
         try{
@@ -48,7 +44,7 @@ class User
         }
     }
     public function find($id){
-        $sql_text = "SELECT * FROM ".self::getTable()." WHERE id = ".$id;
+        $sql_text = "SELECT * FROM ".$this->getTable()." WHERE id = ".$id;
         $ary = toArray($this->getConn()->query($sql_text));
         if(count($ary) > 0){//neu co du lieu
             $data = $ary[0];
@@ -57,7 +53,7 @@ class User
         return null;
     }
     public function delete(){
-        $sql_text = "DELETE FROM ".self::getTable()." WHERE id = ".$this->id;
+        $sql_text = "DELETE FROM ".$this->getTable()." WHERE id = ".$this->id;
         $this->getConn()->query($sql_text);
     }
 }
