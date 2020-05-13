@@ -1,29 +1,29 @@
 <?php
-namespace ass1;//phan vung cua no
+namespace ass2;//phan vung cua no
 use library\connector;
 use library\Model;
 require_once "../library/model.php";
 
-class User extends Model
+class Students extends Model
 {
     public  $id;
     public $name;
-    public $email;
-    public $password;
+    public $age;
+    public $mark;
 
-    protected $table = "users";
+    protected $table = "students";
 
-    public function __construct($id=null, $name=null, $email=null, $password=null)
+    public function __construct($id=null, $name=null, $age=null, $mark=null)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->email = $email;
-        $this->password = md5($password);
+        $this->age = $age;
+        $this->mark = $mark;
 
     }
 
 
-    public function getUsers(){
+    public function getStudents(){
         $sql = "SELECT * FROM ".$this->getTable();
         $rs = $this->getConn()->query($sql);
         return $this->toArray($rs);
@@ -36,9 +36,9 @@ class User extends Model
     }
 
     public function save(){//la su ket hop cua insert va update
-        $sql_text = "INSERT INTO ".$this->getTable()." (id,name,email,password) VALUES(".(is_null($this->id)?'null':$this->id).",'".$this->name.
-            "','".$this->email."','".$this->password."') ON DUPLICATE KEY UPDATE name = '".$this->name."',email = '".$this->email.
-            "', password = '".$this->password."';";
+        $sql_text = "INSERT INTO ".$this->getTable()." (id,name,age,mark) VALUES(".(is_null($this->id)?'null':$this->id).",'".$this->name.
+            "','".$this->age."','".$this->mark."') ON DUPLICATE KEY UPDATE name = '".$this->name."',age = '".$this->age.
+            "', mark = '".$this->mark."';";
         try{
             $this->getConn()->query($sql_text);
         }catch (\Exception $e){
@@ -50,7 +50,7 @@ class User extends Model
         $ary = toArray($this->getConn()->query($sql_text));
         if(count($ary) > 0){//neu co du lieu
             $data = $ary[0];
-            return new User($data["id"], $data["name"], $data["email"], $data["password"]);
+            return new Students($data["id"], $data["name"], $data["age"], $data["mark"]);
         }
         return null;
     }
