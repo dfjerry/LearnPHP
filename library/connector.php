@@ -1,6 +1,6 @@
 <?php
 namespace library;
-require_once "connect.php";
+
 class connector{
     private static $conn;
 

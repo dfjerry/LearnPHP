@@ -1,7 +1,7 @@
 <?php
 namespace library;
-require_once "connector.php";
-abstract class Model{
+
+abstract class Model{//chuyen lo thao tacc vs csdl
     protected $table;
 
     public abstract function all();

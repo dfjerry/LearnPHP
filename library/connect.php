@@ -44,6 +44,6 @@ function toArray($rs){
         }
         //var_dump($students);
     }
-    //students là mang chứa các sinh viên
+    //students là mảng chứa các sinh viên
     return $data;
 }

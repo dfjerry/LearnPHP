@@ -1,5 +1,4 @@
-<?php
-?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,7 +14,7 @@
 
 <div class="container">
     <h1 style="margin: 50px 0 50px 0; text-align: center">Đăng ký người dùng </h1>
-    <form action="post_register.php" , method="post">
+    <form action="?route=post_register" , method="post">
         <div class="form-group">
             <label for="exampleInputName1">Name</label>
             <input type="text" name="name" class="form-control" id="exampleInputName1" aria-describedby="emailHelp" >

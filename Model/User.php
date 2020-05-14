@@ -1,8 +1,7 @@
 <?php
-namespace ass1;//phan vung cua no
+namespace Model;//phan vung cua no
 use library\connector;
 use library\Model;
-require_once "../library/model.php";
 
 class User extends Model
 {
@@ -57,5 +56,15 @@ class User extends Model
     public function delete(){
         $sql_text = "DELETE FROM ".$this->getTable()." WHERE id = ".$this->id;
         $this->getConn()->query($sql_text);
+    }
+    public function attempt($email, $password){
+        $password = md5($password);
+        $sql_text = "SELECT * FROM ".$this->getTable()." WHERE email LIKE '".$email."' AND password LIKE '".$password."'";
+        $ary = toArray($this->getConn()->query($sql_text));
+        if(count($ary) > 0){//neu co du lieu
+            $data = $ary[0];
+            return $data;
+        }
+        return null;
     }
 }
