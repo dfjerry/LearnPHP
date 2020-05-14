@@ -22,4 +22,16 @@ class BookController{
         $book->delete();
         header("Location: ?route=books");
     }
+    public function addBook(){
+        require_once "View/addBook.php";
+    }
+    public function postAddBook(){
+        //nhan thong tin tu form
+        $bookname = $_POST['bookname'];
+        $category = $_POST['category'];
+        //insert to table
+        $book = new \Model\Book(null, $bookname, $category);
+        $book->save();
+        header("Location: ?route=books");
+    }
 }

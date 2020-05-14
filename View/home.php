@@ -8,6 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-<h1>HOME</h1>
+<h1><a href="#">HOME</a></h1>
 </body>
 </html>

@@ -16,6 +16,7 @@
     <?php
     $book = new \Model\Book();
     ?>
+    <a style="font-size: 25px; padding: 10px; background-color: #343a40; color: white; margin-bottom: 50px;" href="?route=addBook">Thêm sách</a>
     <table class="table">
         <thead class="thead-dark">
         <tr>
