@@ -7,9 +7,9 @@
        case "register": $controller->register();break;
        case "post_register": $controller->postRegister();break;
        case "users": $controller->users();break;
-       case "edit": require __DIR__."/ass1/edit.php";break;
-       case "post_edit": require __DIR__."/ass1/post_edit.php";break;
-       case "delete": require __DIR__."/ass1/delete.php";break;
+       case "edit": $controller->edit();break;
+       case "post_edit": $controller->postEdit();break;
+       case "delete": $controller->delete();break;
 
        default: require_once __DIR__ . "/View/home.php";
    }

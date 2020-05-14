@@ -35,4 +35,25 @@ class Controller{
     public function users(){
         require_once "View/users.php";
     }
+    public function edit(){
+        require_once "View/edit.php";
+    }
+    public function postEdit(){
+        //nhan thong tin tu form
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        //insert to table
+        $user = new \Model\User($id, $name, $email, $password);
+        $user->save();
+        header("Location: ?route=users");
+    }
+    public function delete(){
+        $user = new \Model\User();
+        $user = $user->find($_GET["id"]);
+        $user->delete();
+        header("Location: ?route=users");
+    }
 }

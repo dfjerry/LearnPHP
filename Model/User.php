@@ -18,7 +18,6 @@ class User extends Model
         $this->name = $name;
         $this->email = $email;
         $this->password = md5($password);
-
     }
 
 
